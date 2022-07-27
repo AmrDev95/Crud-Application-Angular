@@ -1,1 +1,21 @@
-<p>signup works!</p>
+<form [formGroup]="signupForm" (ngSubmit)="signup(signupForm)">
+    <input [ngClass]="[signupForm.get('first_name')?.touched && signupForm.get('first_name')?.errors ? 'is-invalid': '' , signupForm.get('first_name')?.touched && !signupForm.get('first_name')?.errors ? 'is-valid': '']" formControlName="first_name" type="text" class="form-control mb-3" placeholder="Enter Your First Name">
+    <p *ngIf="signupForm.get('first_name')?.getError('required') &&signupForm.get('first_name')?.touched" class="py-1 alert alert-danger mb-3">First Name Field Is required</p>
+
+    <input [ngClass]="[signupForm.get('last_name')?.touched && signupForm.get('last_name')?.errors ? 'is-invalid': '' , signupForm.get('last_name')?.touched && !signupForm.get('last_name')?.errors ? 'is-valid': '']" formControlName="last_name" type="text" class="form-control mb-3" placeholder="Enter Your Last Name">
+    <p *ngIf="signupForm.get('last_name')?.getError('required') &&signupForm.get('last_name')?.touched" class="py-1 alert alert-danger mb-3">Last Name Field Is required</p>
+
+    <input [ngClass]="[signupForm.get('email')?.touched && signupForm.get('email')?.errors ? 'is-invalid': '' , signupForm.get('email')?.touched && !signupForm.get('email')?.errors ? 'is-valid': '']" formControlName="email" type="email" class="form-control mb-3" placeholder="Enter Your Email">
+    <p *ngIf="signupForm.get('email')?.errors && signupForm.get('email')?.touched" class="py-1 alert alert-danger mb-3">
+        <span *ngIf="signupForm.get('email')?.getError('required') && signupForm.get('email')?.touched" class="d-block">Email Field Is Required</span>
+        <span *ngIf="signupForm.get('email')?.getError('email') && signupForm.get('email')?.touched" class="d-block">Please Enter A Valid Email</span>
+    </p>
+
+    <input [ngClass]="[signupForm.get('password')?.touched && signupForm.get('password')?.errors ? 'is-invalid': '' , signupForm.get('password')?.touched && !signupForm.get('password')?.errors ? 'is-valid': '']" formControlName="password" type="password" class="form-control mb-3" placeholder="Enter Your Password">
+    <p *ngIf="signupForm.get('password')?.getError('required') &&signupForm.get('password')?.touched" class="py-1 alert alert-danger mb-3">Password Field Is required</p>
+
+    <input [ngClass]="[signupForm.get('age')?.touched && signupForm.get('age')?.errors ? 'is-invalid': '' , signupForm.get('age')?.touched && !signupForm.get('age')?.errors ? 'is-valid': '']" formControlName="age" type="number" class="form-control mb-3" placeholder="Enter Your First Age">
+    <p *ngIf="signupForm.get('age')?.getError('required') &&signupForm.get('age')?.touched" class="py-1 alert alert-danger mb-3">Age Field Is required</p>
+
+    <button type="submit" [disabled]="signupForm.invalid" class="btn btn-primary w-100" type="submit">Login</button>
+</form>

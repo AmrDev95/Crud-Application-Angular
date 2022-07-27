@@ -20,6 +20,10 @@ export class AuthenticationService {
     }
   }
 
+  signup(form:FormGroup):Observable<any>{
+    return this._HttpClient.post('https://route-egypt-api.herokuapp.com/signup', form);
+  }
+
   login(loginForm:FormGroup):Observable<any>{
     return this._HttpClient.post('https://route-egypt-api.herokuapp.com/signin', loginForm);
   }
