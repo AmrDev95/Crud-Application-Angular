@@ -1,0 +1,12 @@
+.navbar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999999999;
+    width: 100%;
+    background-color: transparent !important;
+}
+
+.bg-loggedIn{
+    background-color: rgb(52,58,64) !important;
+}

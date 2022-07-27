@@ -1,0 +1,57 @@
+<section class="w-100 vh-100 bg-home overflow-hidden">
+    <div class="container d-flex mt-5 pt-5">
+        <button (click)="showNote()" class="ms-auto btn btn-primary">Add Note</button>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
+
+
+          <div class="col" *ngFor="let note of userNotes">
+            <div class="p-3 border notes-color height-fixed position-relative">
+                <p>
+                    <button class="btn focus border-0  bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body position-absolute">
+                      Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                    </div>
+                </div>
+
+                <h4 class="text-center mt-4">{{note.title}}</h4>
+                <p class="mt-3">{{note.desc}}</p>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+</section>
+
+
+
+<section *ngIf="displayNote" class="add-note">
+    <div class="note">
+        <i (click)="hideNote()" class="fa-solid fa-xmark cursor-pointer text-muted"></i>
+        <div class="container-fluid border-bottom py-3">
+            <p class="my-auto ms-2 fs-5">Add Note</p>
+        </div>
+        <div class="">
+            <form [formGroup]="addNote" (ngSubmit)="sendNote(addNote)" class="container">
+                <input formControlName="title" type="text" class="form-control my-3 " placeholder="Add title">
+                <textarea formControlName="desc" class="form-control mb-3 " rows="10" placeholder="Leave a comment here"></textarea>
+                <div class="border-top py-3 d-flex">
+                    <button [disabled]="addNote.invalid" type="submit" class="ms-auto btn btn-primary me-2">Add</button>
+                    <button (click)="hideNote()" class="me-3 btn btn-danger">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+<section class="container mx-auto">
+    
+</section>

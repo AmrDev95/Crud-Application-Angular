@@ -1,0 +1,15 @@
+.home-background{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-container{
+    width: 600px;
+}
+
+@media screen and (min-width:100px) and (max-width: 700px) {
+    .register-container{
+        width: 90%;
+    }
+}

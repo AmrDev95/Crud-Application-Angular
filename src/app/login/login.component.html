@@ -1,0 +1,12 @@
+<form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+    <input [ngClass]="loginForm.get('email')?.errors &&loginForm.get('email')?.touched ? 'is-invalid': 'is-valid' " formControlName="email" type="email" class="form-control mb-3" placeholder="Enter Your Email">
+    <p *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.touched" class="py-1 alert alert-danger mb-3">
+        <span *ngIf="loginForm.get('email')?.getError('required') && loginForm.get('email')?.touched" class="d-block">Email Field Is Required</span>
+        <span *ngIf="loginForm.get('email')?.getError('email') && loginForm.get('email')?.touched" class="d-block">Please Enter A Valid Email</span>
+    </p>
+
+    <input [ngClass]="loginForm.get('password')?.errors && loginForm.get('password')?.touched ? 'is-invalid':'is-valid' " formControlName="password" type="password" class="form-control mb-3" placeholder="Enter Your Password">
+    <p *ngIf="loginForm.get('password')?.getError('required') &&loginForm.get('password')?.touched" class="py-1 alert alert-danger mb-3">Password Field Is required</p>
+
+    <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary w-100" type="submit">Login</button>
+</form>
