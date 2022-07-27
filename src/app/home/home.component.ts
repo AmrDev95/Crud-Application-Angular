@@ -57,4 +57,23 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  editNote(id:string){
+    this.addNote.value.title ='ddd';
+    this.addNote.value.desc = 'sddddd';
+    this.showNote();
+  }
+
+  deleteNote(id:string){
+    let token = {
+      NoteID:id,
+      token:localStorage.getItem('userToken')?.replace(/"/g, "")
+    }
+    console.log(token);
+    this._NotesService.deleteNote(token).subscribe(
+      (data)=>{
+        this.callNotes();
+      }
+    );
+  }
+
 }

@@ -4,29 +4,37 @@
     </div>
 
     <div class="container mt-5">
+
         <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
+          <div class="col position-relative" *ngFor="let note of userNotes; index as i">
+
+                <button class="Focus btn btn-primary border-0 bg-transparent text-muted menu-options" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseExample'+i" aria-expanded="false">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
 
 
-          <div class="col" *ngFor="let note of userNotes">
+              <div class="collapse" [attr.id]="'collapseExample'+i">
+                <div class="card m-0 p-0 card-body">
+                    <ul class="list-group">
+                        <li (click)="editNote(note._id)" class="list-group-item cursor-pointer d-flex justify-content-between align-items-center border-0 list-hover">
+                            <p class="text-warning my-auto">Edit</p>
+                            <i class="fa-solid fa-pen-to-square text-warning my-auto"></i>
+                        </li>
+                        <li (click)="deleteNote(note._id)" class="list-group-item cursor-pointer d-flex justify-content-between align-items-center border-0 list-hover">
+                            <p class="text-danger my-auto">Delete</p>
+                            <i class="fa-solid fa-trash text-danger my-auto"></i>
+                        </li>
+                      </ul>
+              </div>
+              </div>
+
             <div class="p-3 border notes-color height-fixed position-relative">
-                <p>
-                    <button class="btn focus border-0  bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </button>
-                </p>
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body position-absolute">
-                      Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-
                 <h4 class="text-center mt-4">{{note.title}}</h4>
                 <p class="mt-3">{{note.desc}}</p>
             </div>
           </div>
-
-
         </div>
+
       </div>
 </section>
 
@@ -40,8 +48,8 @@
         </div>
         <div class="">
             <form [formGroup]="addNote" (ngSubmit)="sendNote(addNote)" class="container">
-                <input formControlName="title" type="text" class="form-control my-3 " placeholder="Add title">
-                <textarea formControlName="desc" class="form-control mb-3 " rows="10" placeholder="Leave a comment here"></textarea>
+                <input formControlName="title" type="text" class="form-control my-3 " [attr.value]="addNote.value.title" placeholder="Add title">
+                <textarea formControlName="desc" class="form-control mb-3 " rows="10"  placeholder="Leave a comment here"></textarea>
                 <div class="border-top py-3 d-flex">
                     <button [disabled]="addNote.invalid" type="submit" class="ms-auto btn btn-primary me-2">Add</button>
                     <button (click)="hideNote()" class="me-3 btn btn-danger">Cancel</button>

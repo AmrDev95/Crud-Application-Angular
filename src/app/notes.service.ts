@@ -25,4 +25,8 @@ export class NotesService {
     console.log(this._AuthenticationService.userData.value._id);
     return this._HttpClient.get('https://route-egypt-api.herokuapp.com/getUserNotes', {headers:{token: `${localStorage.getItem('userToken')?.replace(/"/g, "")}` ,  userID: this._AuthenticationService.userData.value._id }} );
   }
+
+  deleteNote(token:Object):Observable<any>{
+    return this._HttpClient.delete('https://route-egypt-api.herokuapp.com/deleteNote', {body:token});
+  }
 }
