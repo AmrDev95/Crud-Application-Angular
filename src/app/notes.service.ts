@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { AuthenticationService } from './authentication.service';
 
 
@@ -28,5 +28,9 @@ export class NotesService {
 
   deleteNote(token:Object):Observable<any>{
     return this._HttpClient.delete('https://route-egypt-api.herokuapp.com/deleteNote', {body:token});
+  }
+
+  updateNotes(updateNote:FormGroup):Observable<any>{
+    return this._HttpClient.put('https://route-egypt-api.herokuapp.com/updateNote', updateNote);
   }
 }

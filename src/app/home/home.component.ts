@@ -17,12 +17,23 @@ export class HomeComponent implements OnInit {
 
   displayNote:boolean = false;
   userNotes:any[] = [];
+  savedTitle:string = '';
+  savedDescription:string ='';
+  displayUpdate:boolean = false;
+  notesCount:number =0;
 
   addNote:FormGroup = new FormGroup({
     title: new FormControl(null, [Validators.required]),
     desc:new FormControl(null, Validators.required),
     userID: new FormControl(this._AuthenticationService.userData.value._id),
     token: new FormControl(localStorage.getItem('userToken')?.replace(/"/g, ""))
+  });
+
+  updateNote:FormGroup = new FormGroup({
+    title: new FormControl(null, [Validators.required]),
+    desc:new FormControl(null, Validators.required),
+    NoteID: new FormControl(null),
+    token: new FormControl(null)
   });
 
   ngOnInit(): void {
@@ -32,7 +43,9 @@ export class HomeComponent implements OnInit {
   callNotes(){
     this._NotesService.getUserNotes().subscribe(
       (data)=>{
-        console.log(data.Notes);
+        if(data.Notes!=null){
+          this.notesCount = Array.from(data.Notes)?.length;
+        }
         this.userNotes = data.Notes;
       }
     );
@@ -47,20 +60,24 @@ export class HomeComponent implements OnInit {
   }
 
   sendNote(addNote:FormGroup){
-    console.log(addNote.value);
     this._NotesService.addNote(addNote.value).subscribe(
       (data)=>{
-        console.log(data);
         this.hideNote();
         this.callNotes();
       }
     );
   }
 
-  editNote(id:string){
-    this.addNote.value.title ='ddd';
-    this.addNote.value.desc = 'sddddd';
-    this.showNote();
+  editNote(note:any){
+    this.savedTitle =note.title;
+    this.savedDescription = note.desc;
+    this.updateNote.setValue({
+      title: note.title,
+      desc:note.desc,
+      NoteID: note._id,
+      token:localStorage.getItem('userToken')?.replace(/"/g, "")
+    })
+    this.displayUpdate = true;
   }
 
   deleteNote(id:string){
@@ -70,7 +87,20 @@ export class HomeComponent implements OnInit {
     }
     console.log(token);
     this._NotesService.deleteNote(token).subscribe(
-      (data)=>{
+      ()=>{
+        this.callNotes();
+      }
+    );
+  }
+
+  hideUpdate(){
+    this.displayUpdate = false;
+  }
+
+  sendUpdate(updateNote:FormGroup){
+    this._NotesService.updateNotes(updateNote.value).subscribe(
+      ()=>{
+        this.displayUpdate = false;
         this.callNotes();
       }
     );

@@ -1,5 +1,11 @@
 .bg-home{
     background-color: rgb(102,102,102);
+    width: 100%;
+    height: 100vh;
+}
+
+.height-auto{
+    height:auto !important;
 }
 
 .add-note{
@@ -95,5 +101,11 @@
 @media screen and (min-width:100px) and (max-width:700px) {
     .note{
         width: 90%;
+    }
+}
+
+@media screen and(min-width:100px) and (max-width:767px) {
+    .bg-home{
+        height: auto !important;
     }
 }
